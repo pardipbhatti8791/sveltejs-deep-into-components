@@ -1,8 +1,19 @@
 <script>
-import { createEventDispatcher } from 'svelte'
-
+import { createEventDispatcher, onMount, onDestroy } from 'svelte'
+export let agreed= false;
 const dispatch = createEventDispatcher()
+
+onMount(() => {
+  console.log('onMount');
+})
+
+onDestroy(() => {
+  console.log('onDestroy')
+})
+
+console.log('script executrd')
 </script>
+
 <div class="backdrop" on:click="{() => dispatch('close-modal')}">
 </div>
 <div class="modal">
@@ -10,9 +21,13 @@ const dispatch = createEventDispatcher()
     <slot name="header" />
   </header>
   <slot />
+  <div class="disclaimer">
+    <p>Before you close, you need to agree to our terms!</p>
+    <button on:click={() => agreed = true}>Agree</button>
+  </div>
   <footer>
-    <slot name="footer">
-      <button on:click="{() => dispatch('close-modal')}">Close</button>
+    <slot name="footer" didAgree={agreed}>
+      <button on:click="{() => dispatch('close-modal')}" disabled="{!agreed}">Close</button>
     </slot>
   </footer>
 </div>
