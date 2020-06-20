@@ -16,8 +16,7 @@
 
 {#each products as product}
 <Product 
-	title={product.title} 
-	price={product.price}
+	{...product}
 	on:add-to-cart="{addToCart}"
 	on:delete="{(e) => console.log(e.detail)}"
 />
