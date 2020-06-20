@@ -1,4 +1,5 @@
 <script>
+	import {tick} from 'svelte'
 	import Product from './Product.svelte'
 	import Modal from './Modal.svelte'
 	
@@ -11,9 +12,25 @@
 			price: 1000
 		}
 	]
+	let text ='helly this is dummy text'
 
 	function addToCart(e) {
 		console.log(e.detail)
+	}
+
+	function transform(e) {
+		console.log(e.whcih)
+		if(e.whcih !== 9) {
+			return ;
+		}
+		e.preventDefault();
+		const selectionStart = e.target.selectionStart
+		const selectionEnd = e.target.selectionEnd
+		const value = e.target.value
+
+		text = value.slice(0, selectionStart) + 
+							value.slice(selectionStart, selectionEnd).toUpperCase() 
+							+ value.slice(selectionEnd)
 	}
 </script>
 
@@ -33,3 +50,5 @@
 	<button slot="footer" on:click="{() => showModal = false}" disabled={!closeable}>Confirm</button>
 </Modal>
 {/if}
+
+<textarea rows="5" value="{text}" on:keydown="{transform}"></textarea>
