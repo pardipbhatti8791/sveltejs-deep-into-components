@@ -1,5 +1,7 @@
 <script>
 	import Product from './Product.svelte'
+	import Modal from './Modal.svelte'
+	
 
 	let products = [
 		{
@@ -21,3 +23,9 @@
 	on:delete="{(e) => console.log(e.detail)}"
 />
 {/each}
+
+<Modal content="Hello Gugu">
+	<h1 slot="header">Hello</h1>
+	<p>This is modal</p>
+	<button slot="footer">Confirm</button>
+</Modal>
