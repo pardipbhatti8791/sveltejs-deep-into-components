@@ -2,7 +2,7 @@
 	import Product from './Product.svelte'
 	import Modal from './Modal.svelte'
 	
-
+	let showModal = false
 	let products = [
 		{
 			id: 'p1',
@@ -23,9 +23,12 @@
 	on:delete="{(e) => console.log(e.detail)}"
 />
 {/each}
+<button on:click={() => showModal = true}>Show Modal</button>
 
-<Modal content="Hello Gugu">
+{#if showModal}
+<Modal content="Hello Gugu" on:close-modal="{() => showModal = false}">
 	<h1 slot="header">Hello</h1>
 	<p>This is modal</p>
-	<button slot="footer">Confirm</button>
+	<button slot="footer" on:click="{() => showModal = false}">Confirm</button>
 </Modal>
+{/if}
